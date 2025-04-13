@@ -1,0 +1,19 @@
+/* You can add global styles to this file, and also import other style files */
+/* src/styles.scss */
+body {
+    margin: 0;
+    font-family: sans-serif;
+    background-color: #f8f9fa; // Heller Hintergrund für die Seite
+    color: #333;
+  }
+  
+  .container {
+    max-width: 1200px; // Maximale Breite für den Hauptinhalt
+    margin: 20px auto; // Zentrieren mit etwas Abstand oben/unten
+    padding: 0 15px; // Innenabstand links/rechts
+  }
+  
+  /* Kann nützlich sein für Box-Modell Konsistenz */
+  *, *::before, *::after {
+     box-sizing: border-box;
+  }

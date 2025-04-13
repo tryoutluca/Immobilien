@@ -1,0 +1,12 @@
+<!-- src/app/app.component.html -->
+<app-header></app-header>
+
+<main class="container">
+  <!-- Suchformular löst das (search)-Event aus -->
+  <app-search-form (search)="handleSearch($event)"></app-search-form>
+
+  <!-- Immobilienliste bekommt die (gefilterten) Immobilien übergeben -->
+  <app-property-list [properties]="displayProperties"></app-property-list>t.
+</main>
+
+<app-footer></app-footer>

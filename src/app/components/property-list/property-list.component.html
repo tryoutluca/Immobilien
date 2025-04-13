@@ -1,0 +1,9 @@
+<div class="property-list-container">
+    <h2>Gefundene Immobilien ({{ properties.length }})</h2>
+    <div *ngIf="properties.length > 0; else noResults">
+      <app-property-card *ngFor="let prop of properties" [property]="prop"></app-property-card>
+    </div>
+    <ng-template #noResults>
+      <p>Keine Immobilien gefunden, die den Kriterien entsprechen.</p>
+    </ng-template>
+  </div>

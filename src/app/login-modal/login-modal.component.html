@@ -1,0 +1,32 @@
+<!-- Der halbtransparente Hintergrund -->
+<div class="modal-backdrop" (click)="closeModal()">
+
+    <!-- Der eigentliche Modal-Inhalt -->
+    <!-- (click) stoppt die Propagation, damit Klick im Inhalt nicht schließt -->
+    <div class="modal-content" (click)="onContentClick($event)">
+      <button class="close-button" (click)="closeModal()" aria-label="Schließen">×</button>
+      <h2>Login</h2>
+      <!-- (ngSubmit) wird ausgelöst, wenn das Formular gesendet wird -->
+      <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
+        <div>
+          <label for="username">Benutzername:</label>
+          <!-- [(ngModel)] für Two-Way Data Binding -->
+          <input type="text" id="username" name="username" [(ngModel)]="loginData.username" required #username="ngModel">
+          <!-- Einfache Validierungsanzeige (optional) -->
+          <div *ngIf="username.invalid && (username.dirty || username.touched)" class="error-message">
+            Benutzername ist erforderlich.
+          </div>
+        </div>
+        <div>
+          <label for="password">Passwort:</label>
+          <input type="password" id="password" name="password" [(ngModel)]="loginData.password" required #password="ngModel">
+           <div *ngIf="password.invalid && (password.dirty || password.touched)" class="error-message">
+            Passwort ist erforderlich.
+          </div>
+        </div>
+        <!-- Button ist disabled, wenn das Formular ungültig ist -->
+        <button type="submit" [disabled]="loginForm.invalid">Einloggen</button>
+      </form>
+    </div>
+  
+  </div>

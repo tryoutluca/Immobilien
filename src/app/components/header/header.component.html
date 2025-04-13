@@ -1,0 +1,17 @@
+<header class="app-header">
+  <h1>Immobilien Scout Klon</h1>
+  <nav>
+    <!-- Hier könnten Navigationslinks stehen -->
+  </nav>
+  <!-- Der Login-Button -->
+  <button class="login-button" (click)="openLoginModal()">Login</button>
+</header>
+
+<!-- Das Login-Modal wird nur angezeigt, wenn isLoginModalVisible true ist -->
+<!-- (close) lauscht auf das Output-Event der Modal-Komponente -->
+<!-- (loginSubmit) lauscht auf das Senden des Formulars -->
+<app-login-modal
+  *ngIf="isLoginModalVisible"
+  (close)="closeLoginModal()"
+  (loginSubmit)="handleLoginAttempt($event)">
+</app-login-modal>

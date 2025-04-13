@@ -1,0 +1,14 @@
+<div class="property-card" *ngIf="property">
+    <img [src]="property.imageUrl" alt="{{ property.title }}" class="property-image">
+    <div class="property-details">
+      <h3>{{ property.title }}</h3>
+      <p class="address">{{ property.address }}</p>
+      <p class="price">{{ property.price | number:'1.0-0' }} {{ property.currency }} {{ property.type === 'Mieten' ? '/ Monat' : '' }}</p>
+      <div class="features">
+        <span>Typ: {{ property.propertyType }}</span>
+        <span>Zimmer: {{ property.rooms }}</span>
+        <span>Fläche: {{ property.area }} m²</span>
+      </div>
+      <button class="details-button">Details ansehen</button>
+    </div>
+  </div>
