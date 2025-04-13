@@ -1,0 +1,109 @@
+<div class="create-listing-container">
+    <h1>Neues Inserat erstellen</h1>
+  
+    <!-- Formular mit Reactive Forms Direktiven -->
+    <!-- [formGroup] bindet das HTML-Formular an das FormGroup im TS -->
+    <!-- novalidate verhindert die Standard-HTML5-Validierung (wir nutzen Angular) -->
+    <!-- (ngSubmit) löst die onSubmit-Methode aus -->
+    <form [formGroup]="listingForm" (ngSubmit)="onSubmit()" novalidate>
+  
+      <!-- Titel -->
+      <div class="form-group">
+        <label for="title">Titel des Inserats:</label>
+        <input type="text" id="title" formControlName="title" class="form-control"
+               [ngClass]="{ 'is-invalid': submitted && f['title'].errors }">
+        <!-- Fehlermeldungen für Titel -->
+        <div *ngIf="submitted && f['title'].errors" class="invalid-feedback">
+          <div *ngIf="f['title'].errors['required']">Titel ist ein Pflichtfeld.</div>
+        </div>
+      </div>
+  
+      <!-- Beschreibung -->
+      <div class="form-group">
+        <label for="description">Beschreibung:</label>
+        <textarea id="description" formControlName="description" class="form-control" rows="5"
+                  [ngClass]="{ 'is-invalid': submitted && f['description'].errors }"></textarea>
+        <!-- Fehlermeldungen für Beschreibung -->
+        <div *ngIf="submitted && f['description'].errors" class="invalid-feedback">
+          <div *ngIf="f['description'].errors['required']">Beschreibung ist ein Pflichtfeld.</div>
+        </div>
+      </div>
+  
+      <!-- Immobilientyp (Dropdown) -->
+      <div class="form-group">
+        <label for="propertyType">Typ:</label>
+        <select id="propertyType" formControlName="propertyType" class="form-control"
+                [ngClass]="{ 'is-invalid': submitted && f['propertyType'].errors }">
+          <option value="" disabled selected>-- Bitte wählen --</option> <!-- Platzhalter -->
+          <option *ngFor="let type of propertyTypes" [value]="type">{{ type }}</option>
+        </select>
+        <!-- Fehlermeldungen für Typ -->
+        <div *ngIf="submitted && f['propertyType'].errors" class="invalid-feedback">
+          <div *ngIf="f['propertyType'].errors['required']">Typ ist ein Pflichtfeld.</div>
+        </div>
+      </div>
+  
+      <!-- Zimmer -->
+      <div class="form-group">
+        <label for="rooms">Zimmer:</label>
+        <input type="number" id="rooms" formControlName="rooms" class="form-control" step="0.5" min="1"
+               [ngClass]="{ 'is-invalid': submitted && f['rooms'].errors }">
+        <!-- Fehlermeldungen für Zimmer -->
+        <div *ngIf="submitted && f['rooms'].errors" class="invalid-feedback">
+          <div *ngIf="f['rooms'].errors['required']">Anzahl Zimmer ist ein Pflichtfeld.</div>
+          <div *ngIf="f['rooms'].errors['min']">Mindestens 1 Zimmer erforderlich.</div>
+          <div *ngIf="f['rooms'].errors['pattern']">Bitte eine gültige Zahl eingeben (z.B. 3 oder 3.5).</div>
+        </div>
+      </div>
+  
+      <!-- Fläche -->
+      <div class="form-group">
+        <label for="area">Fläche (in m²):</label>
+        <input type="number" id="area" formControlName="area" class="form-control" min="1"
+               [ngClass]="{ 'is-invalid': submitted && f['area'].errors }">
+        <!-- Fehlermeldungen für Fläche -->
+        <div *ngIf="submitted && f['area'].errors" class="invalid-feedback">
+          <div *ngIf="f['area'].errors['required']">Fläche ist ein Pflichtfeld.</div>
+          <div *ngIf="f['area'].errors['min']">Mindestens 1 m² erforderlich.</div>
+        </div>
+      </div>
+  
+      <!-- Adresse -->
+      <div class="form-group">
+        <label for="address">Adresse:</label>
+        <input type="text" id="address" formControlName="address" class="form-control"
+               placeholder="z.B. Musterstraße 1, 12345 Musterstadt"
+               [ngClass]="{ 'is-invalid': submitted && f['address'].errors }">
+        <!-- Fehlermeldungen für Adresse -->
+        <div *ngIf="submitted && f['address'].errors" class="invalid-feedback">
+          <div *ngIf="f['address'].errors['required']">Adresse ist ein Pflichtfeld.</div>
+        </div>
+      </div>
+  
+      <!-- Preis -->
+      <div class="form-group">
+        <label for="price">Preis (in €):</label>
+        <input type="number" id="price" formControlName="price" class="form-control" min="0"
+               [ngClass]="{ 'is-invalid': submitted && f['price'].errors }">
+        <!-- Fehlermeldungen für Preis -->
+        <div *ngIf="submitted && f['price'].errors" class="invalid-feedback">
+          <div *ngIf="f['price'].errors['required']">Preis ist ein Pflichtfeld.</div>
+          <div *ngIf="f['price'].errors['min']">Preis muss 0 oder größer sein.</div>
+        </div>
+      </div>
+  
+      <!-- Absende-Button -->
+      <div class="form-actions">
+         <button type="submit" class="btn btn-primary" [disabled]="isLoading">
+           <!-- Ladeanzeige im Button (optional) -->
+           <span *ngIf="isLoading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+           {{ isLoading ? 'Speichern...' : 'Inserat erstellen' }}
+         </button>
+         <!-- Optional: Abbrechen-Button -->
+         <button type="button" class="btn btn-secondary" [routerLink]="'/'" [disabled]="isLoading">
+           Abbrechen
+          </button>
+      </div>
+  
+    </form>
+  </div>

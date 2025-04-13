@@ -1,10 +1,9 @@
-// Deine bestehenden .app-header Stile bleiben erhalten
 .app-header {
   background-color: #007bff;
   color: white;
   padding: 10px 20px;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-between; // Hält Logo links, Rest rechts
   align-items: center;
 
   h1 {
@@ -12,19 +11,63 @@
     font-size: 1.5em;
   }
 
-  // Styles für den neuen Login-Button
-  .login-button {
+  nav {
+    // Optional: Navigationslinks links neben den Buttons anzeigen
+    // flex-grow: 1; // Nimmt verfügbaren Platz ein
+    // margin: 0 20px; // Abstand zu Logo und Buttons
+    a {
+      color: white;
+      text-decoration: none;
+      margin-right: 15px;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  .header-actions {
+    display: flex; // Buttons nebeneinander
+    align-items: center;
+    gap: 10px; // Abstand zwischen den Buttons
+  }
+
+  // Allgemeiner Stil für Header-Buttons
+  .header-button {
     padding: 8px 16px;
     font-size: 1em;
-    color: #007bff; // Button-Text in Header-Farbe
-    background-color: white; // Weißer Hintergrund
     border: none;
     border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.2s ease, color 0.2s ease;
+  }
+
+  // Spezifischer Stil für den Login-Button (Beispiel)
+  .login-button {
+    color: #007bff;
+    background-color: white;
 
     &:hover {
-      background-color: #f0f0f0; // Leicht grauer Hintergrund beim Hover
+      background-color: #f0f0f0;
     }
+  }
+
+  // --- NEUE STILE ---
+  // Spezifischer Stil für den "Neues Inserat"-Button
+  .create-listing-button {
+    background-color: #ffc107; // Beispiel: Gelb/Orange für Hervorhebung
+    color: #333; // Dunkler Text für Kontrast
+
+    &:hover {
+      background-color: #e0a800; // Etwas dunkler beim Hover
+    }
+
+    // Alternative: Gleicher Stil wie Login-Button
+    /*
+    color: #007bff;
+    background-color: white;
+    &:hover {
+      background-color: #f0f0f0;
+    }
+    */
   }
 }

@@ -8,6 +8,9 @@ import { SearchFormComponent } from './components/search-form/search-form.compon
 import { PropertyListComponent } from './components/property-list/property-list.component';
 import { Property } from './components/models/property.model';
 import { PropertyService } from './services/property.service';
+// Importiere RouterModule und ggf. deine Header-Komponente
+import { Router, RouterModule } from '@angular/router';
+
 
 @Component({
   selector: 'app-root',
@@ -16,9 +19,7 @@ import { PropertyService } from './services/property.service';
     CommonModule,
     HeaderComponent,
     FooterComponent,
-    SearchFormComponent,
-    // --->>> IST PropertyListComponent HIER AUFGELISTET? <<<---
-    PropertyListComponent
+    RouterModule
   ],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']

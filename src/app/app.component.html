@@ -2,11 +2,8 @@
 <app-header></app-header>
 
 <main class="container">
-  <!-- Suchformular löst das (search)-Event aus -->
-  <app-search-form (search)="handleSearch($event)"></app-search-form>
-
-  <!-- Immobilienliste bekommt die (gefilterten) Immobilien übergeben -->
-  <app-property-list [properties]="displayProperties"></app-property-list>t.
+  <!-- HIER kommt der Inhalt rein, der vom Router geladen wird -->
+  <router-outlet></router-outlet>
 </main>
 
 <app-footer></app-footer>

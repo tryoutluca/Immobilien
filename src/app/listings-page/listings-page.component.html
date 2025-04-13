@@ -1,0 +1,5 @@
+<!-- src/app/listings-page/listings-page.component.html -->
+<div class="listings-container"> <!-- Optional: Ein Wrapper-Div -->
+    <app-search-form (search)="handleSearch($event)"></app-search-form>
+    <app-property-list [properties]="displayProperties"></app-property-list>
+  </div>

@@ -2,14 +2,23 @@
   <h1>Immobilien Scout Klon</h1>
   <nav>
     <!-- Hier könnten Navigationslinks stehen -->
+    <a routerLink="/some-link">Beispiel Link</a> <!-- Beispiel für einen Navigationslink -->
   </nav>
-  <!-- Der Login-Button -->
-  <button class="login-button" (click)="openLoginModal()">Login</button>
+
+  <div class="header-actions"> <!-- Optional: Gruppe für die Buttons -->
+    <!-- Neuer Button zum Erstellen eines Inserats -->
+    <button class="header-button create-listing-button" (click)="navigateToCreateListing()">
+      Neues Inserat
+    </button>
+
+    <!-- Bestehender Login-Button -->
+    <button class="header-button login-button" (click)="openLoginModal()">
+      Login
+    </button>
+  </div>
 </header>
 
-<!-- Das Login-Modal wird nur angezeigt, wenn isLoginModalVisible true ist -->
-<!-- (close) lauscht auf das Output-Event der Modal-Komponente -->
-<!-- (loginSubmit) lauscht auf das Senden des Formulars -->
+<!-- Das Login-Modal (unverändert) -->
 <app-login-modal
   *ngIf="isLoginModalVisible"
   (close)="closeLoginModal()"

@@ -1,21 +1,24 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common'; // Import CommonModule for *ngIf
+import { CommonModule } from '@angular/common';
 import { LoginModalComponent } from '../../login-modal/login-modal.component';
+import { Router, RouterModule } from '@angular/router'; // Router und RouterModule importieren
 
 @Component({
   selector: 'app-header',
-  standalone: true, // Assuming standalone
+  standalone: true,
   imports: [
-    CommonModule, // Für *ngIf
-    LoginModalComponent // Füge die Modal-Komponente zu den Imports hinzu
-    ,
-    LoginModalComponent
-],
+    CommonModule,
+    LoginModalComponent,
+    RouterModule // RouterModule hier hinzufügen für routerLink
+  ],
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss'] // Behalte deine SCSS-Datei bei
+  styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent {
-  isLoginModalVisible = false; // State, um die Sichtbarkeit des Modals zu steuern
+  isLoginModalVisible = false;
+
+  // Router im Konstruktor injizieren
+  constructor(private router: Router) {}
 
   openLoginModal(): void {
     this.isLoginModalVisible = true;
@@ -25,11 +28,18 @@ export class HeaderComponent {
     this.isLoginModalVisible = false;
   }
 
-  // Methode, die aufgerufen wird, wenn das Modal 'loginSubmit' auslöst
   handleLoginAttempt(loginData: any): void {
     console.log('Login attempt received in header:', loginData);
-    // Hier könntest du z.B. einen AuthenticationService aufrufen
-    // Nach erfolgreichem Login das Modal schließen:
+    // ... (deine Login-Logik)
     // this.closeLoginModal();
+  }
+
+  // --- NEUE METHODE ---
+  // Navigiert zur Seite für die Inseratserstellung
+  navigateToCreateListing(): void {
+    console.log('Navigating to create listing page...');
+    // Ersetze '/inserat-erstellen' durch den tatsächlichen Pfad (Route)
+    // zu deiner Komponente für die Inseratserstellung.
+    this.router.navigate(['/inserat-erstellen']);
   }
 }
