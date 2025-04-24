@@ -1,21 +1,32 @@
 <header class="app-header">
-  <h1>Immobilien Scout Klon</h1>
-  <nav>
-    <!-- Hier könnten Navigationslinks stehen -->
-    <a routerLink="/some-link">Beispiel Link</a> <!-- Beispiel für einen Navigationslink -->
-  </nav>
+  <!-- Logo (bleibt immer sichtbar) -->
+  <img src="/assets/img/Logo.png" alt="Logo" class="header-logo">
 
-  <div class="header-actions"> <!-- Optional: Gruppe für die Buttons -->
-    <!-- Neuer Button zum Erstellen eines Inserats -->
-    <button class="header-button create-listing-button" (click)="navigateToCreateListing()">
+  <!-- Hamburger Button (nur auf Mobilgeräten sichtbar) -->
+  <button class="hamburger-button" (click)="toggleMenu()" [attr.aria-expanded]="isMenuOpen" aria-label="Menü umschalten">
+    <!-- Einfaches SVG für Hamburger Icon -->
+    <svg viewBox="0 0 100 80" width="25" height="25" fill="currentColor"> <!-- fill="currentColor" nimmt die Textfarbe -->
+      <rect width="100" height="15" rx="8"></rect>
+      <rect y="30" width="100" height="15" rx="8"></rect>
+      <rect y="60" width="100" height="15" rx="8"></rect>
+    </svg>
+  </button>
+
+  <!-- Navigations-Container (wird auf Mobilgeräten ein-/ausgeblendet) -->
+  <!-- [ngClass] fügt die Klasse 'is-open' hinzu, wenn isMenuOpen true ist -->
+  <nav class="nav-links" [ngClass]="{'is-open': isMenuOpen}">
+    <!-- Button zum Erstellen -->
+    <button class="header-button create-listing-button" (click)="navigateToCreateListing(); closeMenu()"> <!-- closeMenu() hinzugefügt -->
       Neues Inserat
     </button>
 
-    <!-- Bestehender Login-Button -->
-    <button class="header-button login-button" (click)="openLoginModal()">
-      Login
+    <!-- Login/Mein Konto Button -->
+    <button class="header-button login-button" (click)="openLoginModal(); closeMenu()"> <!-- closeMenu() hinzugefügt -->
+      <svg xmlns="http://www.w3.org/2000/svg" height='14' width="12.25" viewBox="0 0 448 512" class="user-icon"><path d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512l388.6 0c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304l-91.4 0z"/></svg>
+      Mein Konto
     </button>
-  </div>
+  </nav>
+
 </header>
 
 <!-- Das Login-Modal (unverändert) -->

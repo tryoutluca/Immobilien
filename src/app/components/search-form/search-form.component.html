@@ -1,35 +1,82 @@
-<!-- Füge *ngIf="searchCriteria" hier hinzu -->
-<div class="search-container" *ngIf="searchCriteria">
-  <h2>Immobilie suchen</h2>
-  <form (ngSubmit)="onSearchSubmit()" #searchForm="ngForm">
-    <div class="form-row">
-      <div class="form-group">
-        <label for="location">Ort oder PLZ</label>
-        <!-- Diese Bindung ist jetzt sicher, da das Div nur gerendert wird, wenn searchCriteria existiert -->
-        <input type="text" id="location" name="location" placeholder="z.B. Zürich" [(ngModel)]="searchCriteria.location">
-      </div>
+<div class="search-container"> <!-- Hauptcontainer für Styling -->
 
-      <div class="form-group">
-        <label for="type">Mieten / Kaufen</label>
-        <select id="type" name="type" [(ngModel)]="searchCriteria.type">
-          <option value="Mieten">Mieten</option>
-          <option value="Kaufen">Kaufen</option>
-        </select>
-      </div>
+  <!-- Mieten/Kaufen Auswahl -->
+  <div class="type-selector">
+    <button
+      type="button"
+      class="btn type-btn"
+      [ngClass]="{'active': searchCriteria.type === 'Mieten'}"
+      (click)="selectType('Mieten')">
+      Mieten
+    </button>
+    <button
+      type="button"
+      class="btn type-btn"
+      [ngClass]="{'active': searchCriteria.type === 'Kaufen'}"
+      (click)="selectType('Kaufen')">
+      Kaufen
+    </button>
+  </div>
 
-       <div class="form-group">
-         <label for="propertyType">Objekttyp</label>
-         <select id="propertyType" name="propertyType" [(ngModel)]="searchCriteria.propertyType">
-           <option value="">Alle</option>
-           <option value="Wohnung">Wohnung</option>
-           <option value="Haus">Haus</option>
-           <option value="Grundstück">Grundstück</option>
-         </select>
-      </div>
+  <!-- Suchformular-Felder -->
+  <div class="search-fields">
 
-      <div class="form-group button-group">
-         <button type="submit">Suchen</button>
+    <!-- Wo? -->
+    <div class="form-group location-group">
+      <label for="location">Wo?</label>
+      <div class="input-group"> <!-- Gruppe für Input und Radius -->
+         <span class="input-icon">
+             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+               <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+             </svg>
+         </span>
+        <input type="text" id="location" name="location" class="form-control location-input" placeholder="Ort, PLZ, Kanton, Region" [(ngModel)]="searchCriteria.location">
+         <!-- Radius-Auswahl (optional, nur als Beispiel, braucht eigene Logik) -->
+         <button type="button" class="btn radius-btn">+ 0km <span class="dropdown-arrow">▼</span></button>
       </div>
     </div>
-  </form>
-</div>
+
+    <!-- Preis bis -->
+    <div class="form-group">
+      <label for="price">Preis bis</label>
+      <select id="price" name="price" class="form-control" [(ngModel)]="searchCriteria.price">
+        <option *ngFor="let option of priceOptions" [value]="option">
+          {{ option === 'alle' ? 'alle' : option + (searchCriteria.type === 'Mieten' ? ' / Monat' : '') }} <!-- Zeige Einheit nur wenn nicht 'alle' -->
+        </option>
+      </select>
+    </div>
+
+    <!-- Zimmer von -->
+    <div class="form-group">
+      <label for="rooms">Zimmer von</label>
+      <select id="rooms" name="rooms" class="form-control" [(ngModel)]="searchCriteria.rooms">
+         <option *ngFor="let option of roomOptions" [value]="option">
+           {{ option }}
+         </option>
+      </select>
+    </div>
+
+    <!-- Filter Button -->
+    <div class="form-group filter-button-group">
+       <label> </label> <!-- Leeres Label für Ausrichtung -->
+       <button type="button" class="btn filter-btn" (click)="openFilters()">
+         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-filter" viewBox="0 0 16 16">
+            <path d="M6 10.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5m-2-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5m-2-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5"/>
+         </svg>
+         Filter
+       </button>
+    </div>
+
+    <!-- Suchen Button -->
+    <div class="form-group search-button-group">
+      <label> </label> <!-- Leeres Label für Ausrichtung -->
+      <button type="button" class="btn search-btn" (click)="onSearchSubmit()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+           <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+        </svg>
+        Suchen
+      </button>
+    </div>
+
+  </div> <!-- Ende search-fields -->
+</div> <!-- Ende search-container -->

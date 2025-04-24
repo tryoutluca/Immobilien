@@ -13,8 +13,6 @@
   
     .property-image {
       width: 200px; // Feste Breite für das Bild
-      height: 150px;
-      object-fit: cover; // Bild zuschneiden, nicht verzerren
       flex-shrink: 0; // Verhindern, dass das Bild schrumpft
     }
   

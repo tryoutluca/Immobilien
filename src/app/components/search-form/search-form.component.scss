@@ -1,70 +1,209 @@
+/* search-form.component.scss */
+
 .search-container {
-    background-color: #f1f1f1;
-    padding: 20px;
-    border-radius: 5px;
-    margin-bottom: 20px;
-  
-    h2 {
-      margin-top: 0;
-      margin-bottom: 15px;
-      text-align: center;
+  background-color: #fff; // Weißer Hintergrund wie im Bild
+  padding: 20px;
+  border-radius: 8px; // Abgerundete Ecken
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); // Leichter Schatten
+  max-width: 900px; // Maximale Breite anpassen
+  margin: 20px auto; // Zentrieren (optional)
+}
+
+// Mieten/Kaufen Buttons
+.type-selector {
+  margin-bottom: 20px;
+  display: inline-block; // Verhindert, dass es die volle Breite einnimmt
+  border: 1px solid #eee; // Rahmen um die Buttons
+  border-radius: 6px;
+  overflow: hidden; // Um sicherzustellen, dass der Rahmen passt
+
+  .type-btn {
+    background-color: #fff;
+    color: #333;
+    border: none; // Keine individuellen Ränder
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    border-radius: 0; // Keine Abrundung innerhalb der Gruppe
+
+    &:first-child {
+        border-right: 1px solid #eee; // Trennlinie
     }
-  
-    .form-row {
-      display: flex;
-      flex-wrap: wrap; // Umbruch auf kleinen Bildschirmen
-      gap: 15px; // Abstand zwischen Elementen
-      align-items: flex-end; // Elemente unten ausrichten
-    }
-  
-    .form-group {
-      flex: 1; // Gruppen nehmen verfügbaren Platz ein
-      min-width: 150px; // Mindestbreite
-  
-      label {
-        display: block;
-        margin-bottom: 5px;
-        font-weight: bold;
-        font-size: 0.9em;
+
+    // Aktiver Zustand
+    &.active {
+      // Beispiel: Hintergrundfarbe und Unterstrich ähnlich dem Bild
+      background-color: #f8f9fa; // Leichter Grauton für den aktiven Tab
+      font-weight: bold;
+      color: #000;
+      position: relative; // Für den Unterstrich
+
+      // Grüner Unterstrich simulieren
+      &::after {
+          content: '';
+          position: absolute;
+          bottom: -1px; // Am unteren Rand positionieren
+          left: 0;
+          width: 100%;
+          height: 3px; // Dicke des Unterstrichs
+          background-color: #20c997; // Grünton (anpassen)
       }
-  
-      input[type="text"],
-      select {
-        width: 100%;
-        padding: 10px;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        box-sizing: border-box; // Verhindert, dass Padding die Breite beeinflusst
-      }
     }
-  
-    .button-group {
-       flex: 0 0 auto; // Button nimmt nur benötigten Platz ein
+
+    &:not(.active):hover {
+      background-color: #e9ecef; // Hover-Effekt für inaktive Buttons
     }
-  
-    button {
-      padding: 10px 20px;
-      background-color: #ff4500; // Beispiel: Orange
-      color: white;
-      border: none;
+  }
+}
+
+// Container für die Formularfelder (Flexbox)
+.search-fields {
+  display: flex;
+  flex-wrap: wrap; // Erlaubt Umbruch auf kleineren Bildschirmen
+  gap: 15px; // Abstand zwischen den Elementen
+  align-items: flex-end; // Elemente am unteren Rand ausrichten (wegen Labels)
+
+  .form-group {
+    display: flex;
+    flex-direction: column; // Label über dem Input/Select
+    flex-grow: 1; // Erlaubt den Gruppen, verfügbaren Platz einzunehmen
+
+    label {
+      margin-bottom: 5px;
+      font-size: 0.9em;
+      color: #555;
+      font-weight: bold;
+    }
+
+    .form-control {
+      padding: 8px 12px;
+      border: 1px solid #ccc;
       border-radius: 4px;
-      cursor: pointer;
-      font-size: 1em;
-      width: 100%; // Nimmt die Breite der Gruppe ein
-  
-      &:hover {
-        background-color: #e03e00;
+      height: 40px; // Feste Höhe für Ausrichtung
+      width: 100%; // Volle Breite innerhalb der Gruppe
+    }
+
+    select.form-control {
+      // Styling für Select, um es wie im Bild aussehen zu lassen
+      appearance: none; // Standard-Pfeil entfernen
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23888' class='bi bi-chevron-down' viewBox='0 0 16 16'%3E%3Cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 10px center;
+      background-size: 12px;
+      padding-right: 30px; // Platz für den Pfeil
+    }
+  }
+
+  // Spezifisches Styling für Location Gruppe
+  .location-group {
+      flex-grow: 2; // Mehr Platz für das Location-Feld
+      .input-group {
+          display: flex;
+          border: 1px solid #ccc;
+          border-radius: 4px;
+          align-items: center; // Vertikal zentrieren
+          background-color: #fff; // Sicherstellen, dass der Hintergrund weiß ist
+
+          .input-icon {
+              padding: 0 10px;
+              color: #888; // Farbe des Icons
+              display: flex;
+              align-items: center;
+          }
+
+          .location-input {
+              border: none; // Keinen eigenen Rand mehr
+              flex-grow: 1; // Nimmt den verfügbaren Platz
+              height: 38px; // Höhe anpassen
+              padding: 8px 10px;
+              &:focus {
+                  outline: none; // Keinen Fokus-Rand
+                  box-shadow: none; // Keinen Fokus-Schatten
+              }
+          }
+          .radius-btn {
+              border: none;
+              border-left: 1px solid #ccc; // Trennlinie
+              background: none;
+              padding: 8px 12px;
+              cursor: pointer;
+              color: #555;
+              white-space: nowrap; // Verhindert Umbruch
+              height: 38px; // Gleiche Höhe wie Input
+               display: flex;
+               align-items: center;
+
+               .dropdown-arrow {
+                   margin-left: 5px;
+                   font-size: 0.8em;
+               }
+          }
       }
+      // Überschreibe .form-control, da wir .input-group verwenden
+      .form-control.location-input {
+           border: none;
+           height: 38px;
+           width: auto; // Breite wird durch Flexbox gesteuert
+      }
+  }
+
+
+  // Buttons am Ende (Filter, Suchen)
+  .filter-button-group,
+  .search-button-group {
+      flex-grow: 0; // Nicht wachsen lassen
+  }
+
+  .btn {
+    padding: 8px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    height: 40px; // Gleiche Höhe wie Inputs/Selects
+    display: flex;
+    align-items: center;
+    gap: 5px; // Abstand zwischen Icon und Text
+    border: 1px solid #ccc; // Standard-Rand
+    background-color: #fff; // Standard-Hintergrund
+    color: #333; // Standard-Textfarbe
+
+     svg { // Styling für Icons in Buttons
+        margin-right: 5px;
+     }
+  }
+
+  .filter-btn {
+    // Spezielles Styling für Filter-Button falls nötig
+  }
+
+  .search-btn {
+    background-color: #20c997; // Grünton
+    color: #fff; // Weißer Text
+    border-color: #20c997; // Grüner Rand
+    font-weight: bold;
+
+    &:hover {
+        background-color: #1baa80; // Dunklerer Grünton beim Hover
+        border-color: #1baa80;
     }
   }
-  
-  // Media Query für kleinere Bildschirme
-  @media (max-width: 768px) {
-    .form-row {
-       flex-direction: column;
-       align-items: stretch; // Elemente nehmen volle Breite ein
+}
+
+// Media Queries für Responsiveness (optional)
+@media (max-width: 768px) {
+  .search-fields {
+    flex-direction: column; // Untereinander auf kleinen Bildschirmen
+    align-items: stretch; // Volle Breite nutzen
+
+    .form-group {
+      width: 100%;
     }
-    .button-group {
-       margin-top: 10px;
-    }
+
+     .filter-button-group,
+     .search-button-group {
+        // Optional: Buttons nebeneinander am Ende
+        // display: flex;
+        // justify-content: space-between;
+        margin-top: 10px; // Etwas Abstand nach oben
+     }
   }
+}

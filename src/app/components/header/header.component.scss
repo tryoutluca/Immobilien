@@ -1,37 +1,31 @@
+// Deine bestehenden Basis-Styles bleiben weitgehend erhalten
 .app-header {
-  background-color: #007bff;
-  color: white;
-  padding: 10px 20px;
+  max-width: 1200px;
+  margin: 10px auto 0;
+  padding: 10px 15px; // Etwas Padding oben hinzugefügt für Konsistenz
+  background-color: white;
+  color: black;
+  border-bottom: 1px solid;
   display: flex;
-  justify-content: space-between; // Hält Logo links, Rest rechts
+  justify-content: space-between;
   align-items: center;
+  position: relative; // Wichtig für absolute Positionierung des mobilen Menüs
 
-  h1 {
-    margin: 0;
-    font-size: 1.5em;
+  // Logo-Styling (ggf. anpassen für Responsiveness)
+  .header-logo {
+    height: 40px; // Feste Höhe ist oft besser als % Breite
+    width: auto;  // Breite automatisch anpassen
+    flex-shrink: 0; // Verhindert Schrumpfen des Logos bei Platzmangel
   }
 
-  nav {
-    // Optional: Navigationslinks links neben den Buttons anzeigen
-    // flex-grow: 1; // Nimmt verfügbaren Platz ein
-    // margin: 0 20px; // Abstand zu Logo und Buttons
-    a {
-      color: white;
-      text-decoration: none;
-      margin-right: 15px;
-      &:hover {
-        text-decoration: underline;
-      }
-    }
-  }
-
-  .header-actions {
-    display: flex; // Buttons nebeneinander
+  // Container für die Navigationslinks (Desktop-Ansicht)
+  .nav-links {
+    display: flex;
     align-items: center;
     gap: 10px; // Abstand zwischen den Buttons
   }
 
-  // Allgemeiner Stil für Header-Buttons
+  // Allgemeiner Stil für Header-Buttons (unverändert)
   .header-button {
     padding: 8px 16px;
     font-size: 1em;
@@ -39,35 +33,91 @@
     border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.2s ease, color 0.2s ease;
+    white-space: nowrap; // Verhindert Umbruch
+    display: inline-flex; // Für gute Ausrichtung von Icon und Text
+    align-items: center;
+    justify-content: center;
+    gap: 5px; // Abstand Icon/Text
   }
 
-  // Spezifischer Stil für den Login-Button (Beispiel)
+  // Login-Button (unverändert)
   .login-button {
-    color: #007bff;
+    color: black;
     background-color: white;
+
+    &:hover {
+      background-color: #f0f0f0;
+    }
+
+    .user-icon {
+       fill: currentColor;
+       height: 14px;
+       width: 12.25px;
+    }
+  }
+
+  // "Neues Inserat"-Button (unverändert)
+  .create-listing-button {
+    background-color: white;
+    color: black;
+    border: 1px solid black; // Einheitliches Design mit Login-Button
 
     &:hover {
       background-color: #f0f0f0;
     }
   }
 
-  // --- NEUE STILE ---
-  // Spezifischer Stil für den "Neues Inserat"-Button
-  .create-listing-button {
-    background-color: #ffc107; // Beispiel: Gelb/Orange für Hervorhebung
-    color: #333; // Dunkler Text für Kontrast
+  // Hamburger-Button (initial versteckt für Desktop)
+  .hamburger-button {
+    display: none; // Auf Desktop nicht sichtbar
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    margin-left: 15px; // Etwas Abstand zum Logo, falls nötig
+    color: black; // Farbe für das SVG Icon
+  }
 
-    &:hover {
-      background-color: #e0a800; // Etwas dunkler beim Hover
+  // --- Mobile Ansicht (Beispiel: unter 768px) ---
+  @media (max-width: 767.98px) {
+    // Hamburger anzeigen, Navigationslinks ausblenden
+    .hamburger-button {
+      display: block; // Auf Mobilgeräten sichtbar
+      order: 3; // Schiebt den Button nach rechts, falls nötig (flexbox order)
+      z-index: 1001;
     }
 
-    // Alternative: Gleicher Stil wie Login-Button
-    /*
-    color: #007bff;
-    background-color: white;
-    &:hover {
-      background-color: #f0f0f0;
+    .nav-links {
+      display: none; // Standardmäßig auf Mobilgeräten versteckt
+      position: absolute;
+      top: 100%; // Direkt unter dem Header
+      left: 0;
+      right: 0;
+      background-color: white; // Hintergrund für das Dropdown
+      flex-direction: column; // Elemente untereinander
+      align-items: stretch; // Buttons auf volle Breite strecken
+      padding: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border-top: 1px solid #eee;
+      z-index: 1000;
+      gap: 10px; // Abstand zwischen den Buttons im Menü
+
+      // Wenn das Menü offen ist
+      &.is-open {
+        display: flex; // Menü anzeigen
+      }
+
+      // Buttons im mobilen Menü anpassen
+      .header-button {
+        width: 100%; // Volle Breite
+        justify-content: flex-start; // Text und Icon linksbündig
+        padding: 12px 15px; // Mehr Klickfläche
+      }
     }
-    */
+
+    // Evtl. Logo-Größe anpassen
+    .header-logo {
+       height: 35px; // Etwas kleiner auf Mobilgeräten
+    }
   }
 }

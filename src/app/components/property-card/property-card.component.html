@@ -1,5 +1,5 @@
 <div class="property-card" *ngIf="property">
-    <img [src]="property.imageUrl" alt="{{ property.title }}" class="property-image">
+    <img [src]="property.imageUrl" [alt]="property.title" class="property-image">
     <div class="property-details">
       <h3>{{ property.title }}</h3>
       <p class="address">{{ property.address }}</p>

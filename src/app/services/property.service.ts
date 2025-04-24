@@ -19,7 +19,7 @@ export class PropertyService {
       propertyType: 'Wohnung',
       rooms: 3.5,
       area: 85,
-      imageUrl: 'https://via.placeholder.com/300x200/CCCCCC/FFFFFF?text=Wohnung+Bild'
+      imageUrl: '/assets/img/test_haus.jpeg'
     },
     {
       id: 2,
